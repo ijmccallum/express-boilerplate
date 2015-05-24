@@ -8,8 +8,8 @@ var User            = require('../models/user');
 
 var appAuth = {
     'facebookAuth' : {
-        'clientID'      : '379135912281286',
-        'clientSecret'  : 'ad23177a787fb3a934ee68804080fa6c',
+        'clientID'      : 'your-consumer-key-here',
+        'clientSecret'  : 'your-client-secret-here',
         'callbackURL'   : 'http://localhost:8080/auth/facebook/callback'
     },
     'twitterAuth' : {
