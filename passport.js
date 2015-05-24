@@ -1,10 +1,9 @@
-console.info(' 1: Preparing authentication strategies');
 var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 
-var User            = require('../models/user');
+var User            = require('./models/user');
 
 var appAuth = {
     'facebookAuth' : {
@@ -36,6 +35,8 @@ module.exports = function(passport) {
             done(err, user);
         });
     });
+
+    
 
 
     // =========================================================================

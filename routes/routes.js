@@ -1,12 +1,17 @@
 module.exports = function(app, passport) {
 
+
 /* Public Routes
 =====================================================================*/
+
 	app.get('/', function (req, res) {
+		//is a user logged in?
+
 		res.render('index', {
 			loggedIn : isLoggedIn(req, res)
 		});
 	});
+
 
 /* User authentication
 =====================================================================*/
