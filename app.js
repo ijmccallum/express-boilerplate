@@ -1,13 +1,13 @@
 /* Make an express! 
 =========================================*/
-console.time('setup complete');
-console.info('5: Setting up Express');
+console.time('0: setup complete');
+console.info('     5: Setting up Express');
 var express = require('express');
 var app = express();
 
 /* GETTING the packages
 =========================================*/
-console.info('4: Requiring modules');
+console.info('    4: Requiring modules');
 var expressHbs  = require('express-handlebars'); //because moustach
 var passport = require('passport'); //the authentication
 var session = require('express-session');
@@ -18,7 +18,7 @@ var mongoose = require('mongoose'); //To talk to mongo!
 
 /* CONFIGURING the packages
 =========================================*/
-console.info('3: Configuring packages');
+console.info('   3: Configuring packages');
 /* Setting the location for static files */
 app.use(express.static('public'));
 
@@ -48,7 +48,7 @@ app.use(passport.session());
 
 /* DATABASE!!
 ==========================================*/
-console.info('2: Connecting to DB');
+console.info('  2: Connecting to DB');
 mongoose.connect('mongodb://localhost/wl-03-dev');
 
 
@@ -60,13 +60,17 @@ require('./routes/routes.js')(app, passport);
 
 /* RUN!
 ==========================================*/
-console.timeEnd('setup complete');
+console.timeEnd('0: setup complete');
 
 var server = app.listen(3000, function () {
 
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+	console.log('        ______ ____   __');
+	console.log('       / ____// __ \\ / /');
+	console.log('      / / __ / / / // / ');
+	console.log('     / /_/ // /_/ //_/  ');
+	console.log('     \\____/ \\____/(_)   ');
 
 });

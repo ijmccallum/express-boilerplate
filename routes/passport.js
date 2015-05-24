@@ -1,4 +1,4 @@
-console.info('1: Preparing authentication strategies');
+console.info(' 1: Preparing authentication strategies');
 var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;

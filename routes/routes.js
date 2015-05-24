@@ -3,7 +3,9 @@ module.exports = function(app, passport) {
 /* Public Routes
 =====================================================================*/
 	app.get('/', function (req, res) {
-		res.render('index');
+		res.render('index', {
+			loggedIn : isLoggedIn(req, res)
+		});
 	});
 
 /* User authentication
