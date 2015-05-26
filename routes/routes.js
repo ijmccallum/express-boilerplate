@@ -1,116 +1,96 @@
-module.exports = function(app, passport) {
+module.exports = function(router, passport) {
 
-
-/* Public Routes
-=====================================================================*/
-
-	app.get('/', function (req, res) {
-		//is a user logged in?
-
-		res.render('index', {
-			loggedIn : isLoggedIn(req, res)
-		});
+	router.use(function (req, res, next){
+		//This var is used by layouts to determin if various options should be rendered
+		if (req.user){ res.locals.loggedIn = true; }
+		next();
 	});
 
 
-/* User authentication
-=====================================================================*/
-	app.post('/signup', passport.authenticate('local-signup', {
+	/* PUBLIC ROUTES
+	=====================================================================
+	=====================================================================
+	=====================================================================*/
+
+	router.get('/', function (req, res) {
+		res.render('index');
+	});
+
+
+	/* USER AUTHENTICATION
+	=====================================================================
+	=====================================================================
+	=====================================================================*/
+
+	router.post('/signup', passport.authenticate('local-signup', {
 		successRedirect: '/profile',
 		failureRedirect: '/',
 		passReqToCallback : true
 		})
 	);
 
-	app.post('/login', passport.authenticate('local-login', {
+	router.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/profile',
 		failureRedirect: '/',
 		passReqToCallback : true
 		})
 	);
+
+	router.get('/logout', function(req, res) {
+		req.logout();
+		res.redirect('/');
+	});
+
 
 	// facebook -------------------------------
-
-		// send to facebook to do the authentication
-		app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-
-		// handle the callback after facebook has authenticated the user
-		app.get('/auth/facebook/callback',
-			passport.authenticate('facebook', {
-				successRedirect : '/profile',
-				failureRedirect : '/'
-			}));
+	router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+	router.get('/auth/facebook/callback',
+		passport.authenticate('facebook', {
+			successRedirect : '/profile',
+			failureRedirect : '/'
+		})
+	);
 
 	// twitter --------------------------------
-
-		// send to twitter to do the authentication
-		app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
-
-		// handle the callback after twitter has authenticated the user
-		app.get('/auth/twitter/callback',
-			passport.authenticate('twitter', {
-				successRedirect : '/profile',
-				failureRedirect : '/'
-			}));
-
+	router.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
+	router.get('/auth/twitter/callback',
+		passport.authenticate('twitter', {
+			successRedirect : '/profile',
+			failureRedirect : '/'
+		})
+	);
 
 	// google ---------------------------------
-
-		// send to google to do the authentication
-		app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-		// the callback after google has authenticated the user
-		app.get('/auth/google/callback',
-			passport.authenticate('google', {
-				successRedirect : '/profile',
-				failureRedirect : '/'
-			}));
+	router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+	router.get('/auth/google/callback',
+		passport.authenticate('google', {
+			successRedirect : '/profile',
+			failureRedirect : '/'
+		})
+	);
 
 		
+	/* PRIVATE ROUTES, all should use 'hasAccess' to check authentication
+	=====================================================================
+	=====================================================================
+	=====================================================================*/
 
-	//user profile
-	app.get('/profile', isLoggedIn, function(req, res) {
-		//return this user's details
-		console.log('loading profile:req: ', req.user);
-		//console.log('loading profile:req: ', res.user);
+	// user profile
+	router.get('/profile', hasAccess, function(req, res) {
 		res.render('profile', {
             user : req.user // get the user out of session and pass to template
         });
 	});
 
-	//change password
-	app.post('/profile/user/reset-password', isLoggedIn, function(req, res) {
-		//reset this user's password
-	});
 
-	//forgotton password
-	app.get('/forgotton-password', function(req, res) {
-		//reset to radom password
-		//email user with new password - is this a good idea?
-	});
+}; //END module exports
 
-	app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-	
-/* Private Routes
-=====================================================================*/
-	app.get('/private', isLoggedIn, function (req, res) {
-	  res.render('private');
-	});
-
-};
-
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on 
+/* Used when restricted routes are requested */
+function hasAccess(req, res, next) {
     if (req.isAuthenticated()) {
-    	console.log('YEAY!!! LOGGED IN!!!');
         return next();
+    } else {
+    	console.log('unauthenticated access requested.');
+    	res.redirect('/');
     }
-
-    // if they aren't redirect them to the home page
-    console.log('not logged in');
-    res.redirect('/');
 }

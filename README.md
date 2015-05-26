@@ -1,18 +1,34 @@
-# express-boilerplate
-An empty express app with authentication already set up.
-This is meant to be ready for quick prototyping but also to be solid enough to build out into a full on production app if one of those prototypes turns out to be any good.
+# (my) express-boilerplate
+This is just an empty Express.js app set up with Passport.js to deal with authentication (logging in / out / restricting pages) so that I can prototype ideas quickley.  The structure is merly a reflection of my own prefrences!
 
-This is based heavily off https://scotch.io/tutorials/easy-node-authentication-setup-and-local
-If you're interested - they have their own repo.
-I just preffered a slightly different set up!
+The authentication set up is based heavily off [this series of tutorials](https://scotch.io/tutorials/easy-node-authentication-setup-and-local), and if you're interested - [they have their own repo](https://github.com/scotch-io/easy-node-authentication).
 
-Build tools: none 
-Front End Framework: none
-Templating: moustach!  (but it's easy to change)
+I haven't set up Grunt, Gulp, Sass, Less, or any other development tools - that's on purpose, to give the option of choice at the start of a project, although it does have moustach for basic server side templating and mongodb, but they're easy to change and I'm a front end guy so I'm probably just going to leave them as they are.
+
+If you're considering using this as a boilerplate for your own project, thank you!  
+Let me know if you find any glaring errors!
+
+---
+
+###What you will need to do:
+
+* Have [node](https://nodejs.org/)
+* Have [mongo](https://www.mongodb.org/) but feel free to switch that out for anything else!
+* Download / clone / fork.
+* npm install
+
+Tada! you're all set up!
+
+###What you will probably want to do
+
+* Set up your app with Facebook, Google, and Twitter if you're going to use their authentication.
+* Figure out how you're going to deal with forgotten passwords (and then tell me / write an article and share!)
 
 ---
 
 Ideas for the future:
 
-* better encryption
-* branch per front end framework? maybe
+* figure out the best way to deal with forgotten passwords.
+* set up system to change passwords.
+* better encryption.
+* git branch per front end framework? maybe.
