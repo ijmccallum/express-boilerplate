@@ -29,7 +29,11 @@ Tada! you're all set up!
 Ideas for the future:
 
 * set up controllers
+* set up basic tests
+* set up sass archtecture
+* Readme in each folder with explanations
 * figure out the best way to deal with forgotten passwords.
 * set up system to change passwords.
 * better encryption.
 * git branch per front end framework? maybe.
+* article on express.js here?
