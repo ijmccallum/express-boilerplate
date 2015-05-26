@@ -28,6 +28,7 @@ Tada! you're all set up!
 
 Ideas for the future:
 
+* set up controllers
 * figure out the best way to deal with forgotten passwords.
 * set up system to change passwords.
 * better encryption.

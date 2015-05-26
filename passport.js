@@ -1,9 +1,9 @@
-var LocalStrategy   = require('passport-local').Strategy;
+var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 
-var User            = require('./models/user');
+var User             = require('./models/user');
 
 var appAuth = {
     'facebookAuth' : {
@@ -26,7 +26,6 @@ var appAuth = {
 module.exports = function(passport) {
     /* for cookies that are kind of secure
     ============================================================================*/
-    
     passport.serializeUser(function(user, done) {
         done(null, user.id);
     });
@@ -36,15 +35,10 @@ module.exports = function(passport) {
         });
     });
 
-    
-
 
     // =========================================================================
     // LOCAL SIGNUP ============================================================
     // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
-
     passport.use('local-signup', new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
             usernameField : 'email',
@@ -88,9 +82,6 @@ module.exports = function(passport) {
     // =========================================================================
     // LOCAL LOGIN =============================================================
     // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
-
     passport.use('local-login', new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
             usernameField : 'email',
